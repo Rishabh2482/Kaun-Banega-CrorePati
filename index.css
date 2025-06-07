@@ -1,0 +1,11 @@
+#welcomeScreen{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('https://images.cnbctv18.com/wp-content/uploads/2020/09/kbc_amitabh1.jpg?impolicy=website&width=640&height=360');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
