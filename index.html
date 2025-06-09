@@ -7,12 +7,34 @@
         <title>Document</title>
     </head>
     <body>
-        <div id="welcomeScreen">
+        <div id="welcomeScreen" class="hide">
             <div class="container">
                 <label for="username">Enter your username to start</label>
-                <input type="text" placeholder="Enter your username" name="username" class="startInput">
-                <button>Start game</button>
+                <input type="text" placeholder="Enter your username" name="username" id="username">
+                <small id="usernameError"></small>
+                <button onclick="startGame()">Start game</button>
             </div>
         </div>
+
+        <div id="quizArea" >
+            <div class="questionArea">
+                <div class="question">
+                    <div id="questionStatement">
+                        
+                    </div>
+
+                    <div id="answers">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="levelArea">
+                <ul id="levelList">
+
+                </ul>
+            </div>
+        </div>
+
+        <script src="./index.js"></script>
     </body>
 </html>
