@@ -7,7 +7,7 @@
         <title>Document</title>
     </head>
     <body>
-        <div id="welcomeScreen" class="hide">
+        <div id="welcomeScreen">
             <div class="container">
                 <label for="username">Enter your username to start</label>
                 <input type="text" placeholder="Enter your username" name="username" id="username">
@@ -16,11 +16,11 @@
             </div>
         </div>
 
-        <div id="quizArea" >
+        <div id="quizArea"  class="hide">
             <div class="questionArea">
                 <div class="question">
                     <div id="questionStatement">
-                        
+
                     </div>
 
                     <div id="answers">
@@ -32,6 +32,14 @@
                 <ul id="levelList">
 
                 </ul>
+            </div>
+        </div>
+
+        <div id="looseScreen" class="hide">
+            <div class="container">
+                <h1>Better luck Next Time</h1>
+                <h3>You earned: </h3>
+                <button onclick="startGame()">Try again</button>
             </div>
         </div>
 

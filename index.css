@@ -4,7 +4,7 @@
     padding: 0;
 }
 
-#welcomeScreen{
+#welcomeScreen, #looseScreen{
     width: 100%;
     height: 100vh;
     display: flex;
@@ -149,4 +149,40 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+#answers{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 1rem;
+}
+
+.answer{
+    flex-basis: 45%;
+    background: linear-gradient(#100241,black);
+    border: 2px solid white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 20px;
+    color: white;
+}
+
+.answer:hover{
+    background: blue;
+    cursor: pointer;
+    color:white
+}
+
+#looseScreen h1{
+    padding: 10px;
+}
+
+#looseScreen h3{
+    padding: 7px;
 }

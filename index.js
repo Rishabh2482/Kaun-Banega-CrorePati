@@ -102,9 +102,16 @@ const questions = [
       }
 ];
 
-const currentLevelIndex =levels.length-1;
+let currentLevelIndex =levels.length-1;
+
+let currentQuestionIndex =0;
+
+let sum=0;
 
 function startGame(){
+    currentLevelIndex =levels.length-1;  
+    currentQuestionIndex =0;
+    sum=0;
     const username = document.getElementById("username").value;
     const errorMessage = document.getElementById("usernameError");
 
@@ -113,13 +120,13 @@ function startGame(){
         return;
     }
 
-    errorMessage.textContent = ""; // Clear any previous error message
+    errorMessage.textContent = "";
 
     welcomeScreen.classList.add('hide');
     quizArea.classList.remove('hide');
 
 loadLevels();
-    
+loadQuestion();
 }
 
 function loadLevels() {
@@ -141,44 +148,61 @@ function loadLevels() {
 
 function loadQuestion(){
     const questionStatement = document.getElementById("questionStatement");
-    const currentObj = questions[currentLevelIndex];
+    const ans= document.getElementById("answers");
 
+    let currentObj = questions[currentQuestionIndex];
+
+    questionStatement.innerHTML="";
+    ans.innerHTML=""
     questionStatement.innerText=currentObj.question;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // const ans= document.getElementById("answers");
-    // // console.log(ans)
-
-    // const obj = questions[currentLevelIndex];
-    //     const question = document.createElement('p'); // for question
-    //     question.classList.add("questionStyle");
-
-    //     const answerl1 = document.createElement('p');   // for options
-    //     answerl1.classList.add("optionsStyle");
-
-    //     question.innerHTML = obj.question;  // adding question
-
-    //     obj.options.forEach((val, ind)=>{   // for each question 4 options
-    //         const op = document.createElement('span');  // created a span tag
-    //         op.innerText=val;   // added answer in that tag
-    //         answerl1.appendChild(op);   // appended each option in options class.
-    //     })
-    //     questionStatement.appendChild(question);
-    //     ans.appendChild(answerl1);
-    
+    currentObj.options.forEach((option, index)=>{
+        const answerDiv = document.createElement("div");
+        answerDiv.classList.add("answer");
+        answerDiv.innerHTML= option;
+        answerDiv.addEventListener('click',() => checkAnswer(index),false)
+        ans.appendChild(answerDiv);
+    })
 }
-loadQuestion();
+
+function checkAnswer(index){
+  let val = parseInt(levels[currentLevelIndex].replace(/[₹,]/g, ''), 10);
+  const currentObj = questions[currentQuestionIndex];
+
+    if(index !=currentObj.answer){
+        const looseScreen = document.getElementById('looseScreen')
+        quizArea.classList.add('hide');
+        looseScreen.classList.remove("hide");
+        earning(false,0);
+        sum=0;
+    }
+    else{
+      if(currentLevelIndex == 0){
+        quizArea.classList.add('hide');
+        document.getElementsByTagName('h1')[0].innerText='Congratulation Champ';
+        looseScreen.classList.remove("hide");
+        earning(true,val);
+        return;
+      }
+      else
+      earning(false, val);
+      currentQuestionIndex++;
+      currentLevelIndex--;
+      loadLevels();
+      loadQuestion();
+    }
+    return;
+}
+
+
+// levels -> 0(max) to 14(min)
+function earning(winner,val){
+    // console.log(sum);
+    const earningValue = document.getElementsByTagName('h3');
+
+    sum+=val;
+    console.log(sum);
+    earningValue[0].innerHTML=`You have earned ${sum}`;
+    
+    return;
+}
