@@ -108,6 +108,9 @@ let currentQuestionIndex =0;
 
 let sum=0;
 
+let timerValue=0;
+let timerCount=0;
+
 function startGame(){
     currentLevelIndex =levels.length-1;  
     currentQuestionIndex =0;
@@ -149,6 +152,9 @@ function loadLevels() {
 function loadQuestion(){
     const questionStatement = document.getElementById("questionStatement");
     const ans= document.getElementById("answers");
+    let time = document.getElementById("time");
+    time.innerText='5';
+    updatetimer(5000);
 
     let currentObj = questions[currentQuestionIndex];
 
@@ -166,10 +172,13 @@ function loadQuestion(){
 }
 
 function checkAnswer(index){
+  clearTimeout(timerValue);
+  clearInterval(timerCount);
+
   let val = parseInt(levels[currentLevelIndex].replace(/[₹,]/g, ''), 10);
   const currentObj = questions[currentQuestionIndex];
 
-    if(index !=currentObj.answer){
+    if(index !=currentObj.answer){  // if current question is wrong
         const looseScreen = document.getElementById('looseScreen')
         quizArea.classList.add('hide');
         looseScreen.classList.remove("hide");
@@ -177,14 +186,14 @@ function checkAnswer(index){
         sum=0;
     }
     else{
-      if(currentLevelIndex == 0){
+      if(currentLevelIndex == 0){   // if current question is correct and it is the last question
         quizArea.classList.add('hide');
         document.getElementsByTagName('h1')[0].innerText='Congratulation Champ';
         looseScreen.classList.remove("hide");
         earning(true,val);
         return;
       }
-      else
+      else    // if current question is correct and it is not the last question.
       earning(false, val);
       currentQuestionIndex++;
       currentLevelIndex--;
@@ -201,8 +210,22 @@ function earning(winner,val){
     const earningValue = document.getElementsByTagName('h3');
 
     sum+=val;
-    console.log(sum);
+    // console.log(sum);
     earningValue[0].innerHTML=`You have earned ${sum}`;
     
     return;
+}
+
+function updatetimer(t){
+   let time = document.getElementById("time");
+   timerValue=setTimeout(()=>{
+      checkAnswer(5);
+   },t);
+
+   timerCount = setInterval(()=>{
+      let value =parseInt(time.innerText);
+      console.log(value);
+      value--;
+      time.innerText= String(value);
+   },1000)
 }
